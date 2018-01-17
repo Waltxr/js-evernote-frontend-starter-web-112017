@@ -1,11 +1,10 @@
 let noteStore = []
-let noteId = 0
 
 class Note {
-  constructor(title, body) {
+  constructor(title, body, noteId) {
     this.title = title
     this.body = body
-    this.id = noteId++
+    this.id = noteId
     noteStore.push(this)
   }
 }

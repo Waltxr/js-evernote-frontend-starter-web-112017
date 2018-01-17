@@ -2,26 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script src="notes.js"></script>
-  <script src="index.js"></script>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
 </head>
 <body>
-  <div id="main-content">
+  <div id="main-content" class="container">
+    <div class="row">
+      <div class="five columns">
 
+        <form id="create-note" action="#" method="post">
+          <label for="new-note-title">Add a new note:</label>
+          <input type="text" id="new-note-title" name="new-note-title" placeholder="title">
+          <input type="text" id="new-note-body" name="new-note-body" placeholder="body">
+          <input type="submit" value="Create New List">
+        </form><!-- #create-list-form -->
+    <!-- note list   -->
+        <h2>All Notes</h2>
+        <ol id="note-list">
+        </ol>
 
-    <form id="create-note" action="#" method="post">
-      <label for="new-note-title">Add a new note:</label>
-      <input type="text" id="new-list-title" name="new-list-title" placeholder="title">
-      <input type="submit" value="Create New List">
-    </form><!-- #create-list-form -->
+      </div>
 
-  <!-- note list   -->
-
-<h2>All Notes</h2>
-
-<ul id="note-list">
-</ul>
+      <div class="seven columns">
+        <form id="current-note">
+          <input type="text" id="edit-note-title" name="edit-note-title">
+          <input type="text" id="edit-note-body" name="edit-note-body">
+          <input type="submit" value="Edit this List">
+        </form>
+    </div>
+  </div>
 
   </div><!-- #main-content -->
+
+  <script src="notes.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
