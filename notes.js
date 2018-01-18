@@ -7,4 +7,5 @@ class Note {
     this.id = noteId
     noteStore.push(this)
   }
+
 }
