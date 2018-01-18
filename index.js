@@ -32,18 +32,15 @@ static addNotes(data) {
 
 static displayNotes(noteStore) {
   for(let note of noteStore.reverse()) {
-    if (document.querySelectorAll.includes(function(x) {
-      x.dataset.id === note.id
-    }))
-
-    })
     let noteThumbNail = document.createElement("li")
      noteThumbNail.innerHTML = note.title
+     noteThumbNail.dataset.id = note.id
      document.getElementById("note-list").appendChild(noteThumbNail)
   }
 }
 
-static handleCreateNote() {
+static handleCreateNote(event) {
+  event.preventDefault()
   const newNoteTitle = document.getElementById('new-note-title').value
   const newNoteBody = document.getElementById('new-note-body').value
 
@@ -60,11 +57,19 @@ static handleCreateNote() {
     })
     }).then(res => res.json())
       .then(noteData => {
-        const note = new Note(noteData)
+        const note = new Note(noteData["title"], noteData["body"], noteData["id"])
         // RENDER
         let el = document.createElement('li')
         el.innerText = note.title
-        document.getElementById('note-list').appendChild(el)
+        const noteList = document.getElementById('note-list')
+        if (noteList.children.length > 0) {
+          noteList.insertBefore(el, noteList.children[0])
+        } else {
+          noteList.appendChild(el)
+        }
+        App.loadNote(note.id)
+        document.getElementById('new-note-title').value = ""
+        document.getElementById('new-note-body').value = ""
     })
   }
 
@@ -87,12 +92,18 @@ static handleEditNote(event) {
     },
     body: JSON.stringify({
       title: editNoteTitle,
-      body: editNoteTitle
+      body: editNoteBody
     })
     }).then(res => res.json())
-      .then(noteData => noteData)
-
-}
+      .then(noteData => {
+        const eNote = document.querySelector(`li[data-id="${noteId}"]`);
+        eNote.innerText = editNoteTitle;
+        let storedNote = noteStore.find(note => note.id.toString() === noteId);
+        console.log(noteStore)
+        storedNote.title = editNoteTitle;
+        storedNote.body = editNoteBody;
+      });
+    }
 
 }
 
